@@ -156,8 +156,20 @@
 .hero-section__canvas {
   position: absolute;
   inset: 0;
-  pointer-events: none;
   z-index: 0;
+  pointer-events: auto; /* ENABLE SPLINE INTERACTION! */
+}
+/* إخفاء الشعار عبر غطاء يحمل نفس لون الخلفية في الزاوية اليمنى السفلى */
+.hero-section__canvas::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 160px;
+  height: 50px;
+  background: var(--bg-primary); /* نفس لون الخلفية المدمجة */
+  z-index: 20;
+  pointer-events: none;
 }
 .hero-scene-wrapper {
   position: absolute;
@@ -197,11 +209,23 @@
   padding-bottom: 120px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* Physical left in RTL */
+  align-items: flex-start; /* For text-alignment to physical left if RTL forces it, but wait: margin handles positioning */
   margin-right: auto;
-  max-width: 60%;
+  margin-left: 0 !important;
+  max-width: 50%; /* Shrink to only half of the screen */
   gap: 24px;
   pointer-events: none; /* Let clicks pass through to Spline */
+}
+/* Ensure the inner children physically align right inside the left box */
+.hero-content > * {
+  align-self: flex-start; /* in RTL flex-start is physical right. So inside the left box, text aligns to the right side of the box. */
+}
+.hero-cta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 @media (max-width: 768px) {
   .hero-content {
