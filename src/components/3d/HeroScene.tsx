@@ -22,7 +22,7 @@ export default function HeroScene() {
       style={{ y: canvasY, opacity: canvasOpacity }}
       className="hero-scene-wrapper"
     >
-      <Spline scene="https://prod.spline.design/Uxx13DdRV6aOfxa8/scene.splinecode" />
+      <Spline scene="https://prod.spline.design/g9Cy1psmvDKYFoPv/scene.splinecode" />
       
       {/* 🛡️ Robust Physical Patch to hide Spline watermark */}
       <div 
