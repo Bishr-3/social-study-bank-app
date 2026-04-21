@@ -1,65 +1,202 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import { motion } from 'framer-motion'
+import Link from 'next/link'
+import dynamic from 'next/dynamic'
+import Navbar from '@/components/ui/Navbar'
+import Footer from '@/components/ui/Footer'
+import StatsSection from '@/components/sections/StatsSection'
+import FeaturesSection from '@/components/sections/FeaturesSection'
+
+const HeroSceneWrapper = dynamic(
+  () => import('@/components/3d/HeroSceneWrapper'),
+  { ssr: false }
+)
+
+/* ── Sample resource types for type strip ── */
+const typeStrip = [
+  { icon: '📄', label: 'ملخص PDF',      badge: 'badge-blue' },
+  { icon: '📊', label: 'عرض PPT',       badge: 'badge-violet' },
+  { icon: '🎬', label: 'فيديو YouTube', badge: 'badge-teal' },
+]
+
+/* ── Subject chips ── */
+const subjects = [
+  'الرياضيات', 'الفيزياء', 'الكيمياء', 'الأحياء',
+  'اللغة العربية', 'اللغة الإنجليزية', 'التاريخ', 'الجغرافيا',
+]
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <>
+      <Navbar />
+
+      <main>
+        {/* ═══════════════════════════════════════ */}
+        {/*              HERO SECTION               */}
+        {/* ═══════════════════════════════════════ */}
+        <section className="hero-section grid-bg">
+          {/* 3-D Canvas — absolute behind text */}
+          <div className="hero-section__canvas">
+            <HeroSceneWrapper />
+          </div>
+
+          {/* Radial glow orbs */}
+          <div className="hero-glow hero-glow--blue"   />
+          <div className="hero-glow hero-glow--violet" />
+          <div className="hero-glow hero-glow--teal"   />
+
+          {/* Text content */}
+          <div className="hero-content container">
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              <span className="badge badge-violet hero-badge pulse-glow">
+                🚀 المنصة التعليمية العربية الأولى · v2.0
+              </span>
+            </motion.div>
+
+            {/* Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="hero-title"
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+              مستودعك الرقمي<br />
+              <span className="gradient-text">لكل الدروس</span>
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.22 }}
+              className="hero-subtitle"
+            >
+              ابحث، تصفّح، وشارك آلاف الملخصات والعروض والفيديوهات<br className="hide-mobile" />
+              في منصة واحدة مصممة خصيصاً للطالب العربي.
+            </motion.p>
+
+            {/* Type strip */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.32 }}
+              className="hero-type-strip"
+            >
+              {typeStrip.map(t => (
+                <span key={t.label} className={`badge ${t.badge}`} style={{ fontSize: '0.8rem', padding: '6px 14px' }}>
+                  {t.icon} {t.label}
+                </span>
+              ))}
+            </motion.div>
+
+            {/* CTA buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.42 }}
+              className="hero-cta"
+            >
+              <Link href="/explore" className="btn-glow hero-btn-primary">
+                🔍 ابدأ الاستكشاف
+              </Link>
+              <Link href="/login" className="btn-outline hero-btn-secondary">
+                انضم مجاناً ←
+              </Link>
+            </motion.div>
+
+            {/* Scroll hint */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.2, duration: 0.8 }}
+              className="hero-scroll-hint"
+            >
+              <span className="hero-scroll-hint__arrow">↓</span>
+              <span>اكتشف المزيد</span>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════ */}
+        {/*           SUBJECTS STRIP               */}
+        {/* ═══════════════════════════════════════ */}
+        <section className="subjects-strip-section">
+          <div className="container">
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="subjects-strip__label"
+            >
+              المواد الدراسية المتاحة
+            </motion.p>
+            <div className="subjects-strip">
+              {subjects.map((s, i) => (
+                <motion.div
+                  key={s}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.06, duration: 0.4 }}
+                >
+                  <Link href={`/subjects/${encodeURIComponent(s)}`} className="subject-chip glass glass-hover">
+                    {s}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════ */}
+        {/*             STATS SECTION              */}
+        {/* ═══════════════════════════════════════ */}
+        <StatsSection />
+
+        {/* ═══════════════════════════════════════ */}
+        {/*           FEATURES SECTION             */}
+        {/* ═══════════════════════════════════════ */}
+        <FeaturesSection />
+
+        {/* ═══════════════════════════════════════ */}
+        {/*              CTA BANNER                */}
+        {/* ═══════════════════════════════════════ */}
+        <section className="cta-banner-section">
+          <div className="container">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="cta-banner glass"
+            >
+              <div className="cta-banner__glow" />
+              <h2 className="cta-banner__title">
+                ابدأ رحلة التعلم اليوم
+              </h2>
+              <p className="cta-banner__subtitle">
+                سجّل الآن مجاناً وادخل إلى مستودع ضخم من المواد التعليمية المنظمة.
+              </p>
+              <div className="cta-banner__actions">
+                <Link href="/register" className="btn-glow" style={{ fontSize: '1rem', padding: '15px 36px' }}>
+                  🎓 إنشاء حساب مجاني
+                </Link>
+                <Link href="/explore" className="btn-outline">
+                  تصفّح بدون حساب
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </section>
       </main>
-    </div>
-  );
+
+      <Footer />
+    </>
+  )
 }

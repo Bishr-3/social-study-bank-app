@@ -1,7 +1,21 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  // Allow Three.js and react-three packages to be transpiled
+  transpilePackages: ['three'],
 
-export default nextConfig;
+  // Turbopack config (Next.js 15+)
+  turbopack: {
+    resolveExtensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
+  },
+
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: '*.supabase.co' },
+      { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
+      { protocol: 'https', hostname: 'avatars.githubusercontent.com' },
+    ],
+  },
+}
+
+export default nextConfig
