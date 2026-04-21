@@ -124,9 +124,37 @@ export default function HomePage() {
         </section>
 
         {/* ═══════════════════════════════════════ */}
+        {/*            QUICK LINKS SECTION         */}
+        {/* ═══════════════════════════════════════ */}
+        <section className="quick-links-section container" style={{ padding: '60px 0', zIndex: 5, position: 'relative' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
+            <Link href="/about" className="card glass-hover" style={{ padding: '24px', textAlign: 'center', textDecoration: 'none' }}>
+              <span style={{ fontSize: '2.5rem', display: 'block', marginBottom: '12px' }}>🎯</span>
+              <h3 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', marginBottom: '8px' }}>أهداف المشروع</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>تعرف على رؤيتنا وهدفنا في تطوير التعليم الرقمي.</p>
+            </Link>
+            <Link href="/contact" className="card glass-hover" style={{ padding: '24px', textAlign: 'center', textDecoration: 'none' }}>
+              <span style={{ fontSize: '2.5rem', display: 'block', marginBottom: '12px' }}>📞</span>
+              <h3 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', marginBottom: '8px' }}>اتصل بنا</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>نحن هنا لدعمك والإجابة على أي استفسارات.</p>
+            </Link>
+            <Link href="/privacy" className="card glass-hover" style={{ padding: '24px', textAlign: 'center', textDecoration: 'none' }}>
+              <span style={{ fontSize: '2.5rem', display: 'block', marginBottom: '12px' }}>🔒</span>
+              <h3 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', marginBottom: '8px' }}>سياسة الخصوصية</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>كيف نحمي بياناتك ومعلوماتك الشخصية.</p>
+            </Link>
+            <Link href="/terms" className="card glass-hover" style={{ padding: '24px', textAlign: 'center', textDecoration: 'none' }}>
+              <span style={{ fontSize: '2.5rem', display: 'block', marginBottom: '12px' }}>📄</span>
+              <h3 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', marginBottom: '8px' }}>الشروط والأحكام</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>القواعد المتبعة لاستخدام منصة بنك الدروس.</p>
+            </Link>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════ */}
         {/*           SUBJECTS STRIP               */}
         {/* ═══════════════════════════════════════ */}
-        <section className="subjects-strip-section">
+        <section className="subjects-strip-section" style={{ paddingTop: '20px' }}>
           <div className="container">
             <motion.p
               initial={{ opacity: 0 }}

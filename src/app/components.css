@@ -159,25 +159,14 @@
   z-index: 0;
   pointer-events: auto; /* ENABLE SPLINE INTERACTION! */
 }
-/* إخفاء الشعار عبر غطاء يحمل نفس لون الخلفية في الزاوية اليمنى السفلى */
-.hero-section__canvas::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 160px;
-  height: 50px;
-  background: var(--bg-primary); /* نفس لون الخلفية المدمجة */
-  z-index: 20;
-  pointer-events: none;
-}
 .hero-scene-wrapper {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 45px), calc(100% - 165px) calc(100% - 45px), calc(100% - 165px) 100%, 0 100%);
 }
-/* إخفاء شعار Spline */
+/* إخفاء شعار Spline الداخلي احتياطياً */
 .hero-scene-wrapper a[href*="spline.design"] {
   display: none !important;
 }
