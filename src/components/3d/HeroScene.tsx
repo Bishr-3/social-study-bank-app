@@ -23,6 +23,20 @@ export default function HeroScene() {
       className="hero-scene-wrapper"
     >
       <Spline scene="https://prod.spline.design/Uxx13DdRV6aOfxa8/scene.splinecode" />
+      
+      {/* 🛡️ Robust Physical Patch to hide Spline watermark */}
+      <div 
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          right: 0,
+          width: '220px', 
+          height: '70px',
+          background: 'var(--bg-primary)',
+          zIndex: 9999,
+          pointerEvents: 'none'
+        }} 
+      />
     </motion.div>
   )
 }
