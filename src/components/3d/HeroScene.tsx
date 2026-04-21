@@ -30,10 +30,10 @@ export default function HeroScene() {
           position: 'absolute',
           bottom: 0,
           right: 0,
-          width: '180px',
-          height: '50px',
+          width: '200px',
+          height: '60px',
           background: 'var(--bg-primary)',
-          zIndex: 100,
+          zIndex: 1000,
           pointerEvents: 'none'
         }} 
       />

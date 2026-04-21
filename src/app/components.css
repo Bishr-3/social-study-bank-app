@@ -164,7 +164,7 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 45px), calc(100% - 165px) calc(100% - 45px), calc(100% - 165px) 100%, 0 100%);
+  /* Removed clip-path to avoid layout shifts on mobile */
 }
 /* إخفاء شعار Spline الداخلي احتياطياً */
 .hero-scene-wrapper a[href*="spline.design"] {
@@ -205,16 +205,22 @@
   gap: 24px;
   pointer-events: none; /* Let clicks pass through to Spline */
 }
-/* Ensure the inner children physically align right inside the left box */
-.hero-content > * {
-  align-self: flex-start; /* in RTL flex-start is physical right. So inside the left box, text aligns to the right side of the box. */
+@media (max-width: 768px) {
+  .hero-content {
+    max-width: 100%;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 60px;
+  }
+  .hero-content > * {
+    align-self: center;
+  }
+  .hero-title {
+    text-align: center;
+  }
 }
-.hero-cta {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+.hero-content a, .hero-content button, .hero-content .subject-chip {
+  pointer-events: auto; /* Enable clicks only on buttons */
 }
 @media (max-width: 768px) {
   .hero-content {
