@@ -26,7 +26,22 @@ const subjects = [
   'اللغة العربية', 'اللغة الإنجليزية', 'التاريخ', 'الجغرافيا',
 ]
 
+import { useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+
 export default function HomePage() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  // Safeguard: If the user lands here with a ?code= parameter (Supabase OAuth callback leak),
+  // redirect them to the proper callback handler.
+  useEffect(() => {
+    const code = searchParams.get('code')
+    if (code) {
+      const next = searchParams.get('next') || '/dashboard'
+      router.replace(`/auth/callback?code=${code}&next=${next}`)
+    }
+  }, [searchParams, router])
   return (
     <>
       <Navbar />
