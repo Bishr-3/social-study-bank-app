@@ -4,11 +4,11 @@
 
 :root {
   /* ---------- Color Palette ---------- */
-  --bg-primary:    #080810;
-  --bg-secondary:  #0d0d1a;
-  --bg-card:       #111122;
-  --bg-glass:      rgba(255, 255, 255, 0.04);
-  --bg-glass-hover:rgba(255, 255, 255, 0.08);
+  --bg-primary:    #f2f5fb; /* Matches Spline light background base */
+  --bg-secondary:  #ffffff;
+  --bg-card:       #ffffff;
+  --bg-glass:      rgba(255, 255, 255, 0.65);
+  --bg-glass-hover:rgba(255, 255, 255, 0.9);
 
   --accent-blue:   #4f8ef7;
   --accent-violet: #7c5cfc;
@@ -16,14 +16,14 @@
   --accent-gold:   #f5c842;
 
   --gradient-hero: linear-gradient(135deg, #4f8ef7 0%, #7c5cfc 50%, #00d4aa 100%);
-  --gradient-card: linear-gradient(145deg, rgba(79,142,247,0.15) 0%, rgba(124,92,252,0.05) 100%);
+  --gradient-card: linear-gradient(145deg, rgba(79,142,247,0.06) 0%, rgba(124,92,252,0.02) 100%);
 
-  --text-primary:  #f0f0ff;
-  --text-secondary:#8888aa;
-  --text-muted:    #44445a;
+  --text-primary:  #10101c;
+  --text-secondary:#4e4e66;
+  --text-muted:    #82829e;
 
-  --border:        rgba(255, 255, 255, 0.08);
-  --border-glow:   rgba(79, 142, 247, 0.4);
+  --border:        rgba(0, 0, 0, 0.06);
+  --border-glow:   rgba(79, 142, 247, 0.25);
 
   /* ---------- Spacing & Radii ---------- */
   --radius-sm:   8px;

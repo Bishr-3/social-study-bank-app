@@ -165,6 +165,10 @@
   width: 100%;
   height: 100%;
 }
+/* إخفاء شعار Spline */
+.hero-scene-wrapper a[href*="spline.design"] {
+  display: none !important;
+}
 .hero-scene-loader {
   width: 60px; height: 60px;
   border: 2px solid var(--border);
@@ -188,14 +192,29 @@
 .hero-content {
   position: relative;
   z-index: 2;
-  text-align: center;
+  text-align: right;
   padding-top: 60px;
   padding-bottom: 120px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end; /* Physical left in RTL */
+  margin-right: auto;
+  max-width: 60%;
   gap: 24px;
+  pointer-events: none; /* Let clicks pass through to Spline */
 }
+@media (max-width: 768px) {
+  .hero-content {
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
+    margin-top: -30px;
+  }
+}
+.hero-content a, .hero-content button, .hero-content .subject-chip {
+  pointer-events: auto; /* Enable clicks only on buttons */
+}
+
 .hero-badge { font-size: 0.8rem; padding: 8px 18px; }
 .hero-title {
   font-size: clamp(2.8rem, 7vw, 5.5rem);
@@ -235,6 +254,7 @@
   align-items: center;
   gap: 6px;
   color: var(--text-muted);
+  pointer-events: auto;
   font-size: 0.78rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
