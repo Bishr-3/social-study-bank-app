@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import Spline from '@splinetool/react-spline/next'
+import Spline from '@splinetool/react-spline'
 import { motion, useScroll, useTransform } from 'framer-motion'
 
 export default function HeroScene() {
