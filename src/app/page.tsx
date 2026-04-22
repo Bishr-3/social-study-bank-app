@@ -9,8 +9,6 @@ import StatsSection from '@/components/sections/StatsSection'
 import FeaturesSection from '@/components/sections/FeaturesSection'
 
 // Removed HeroSceneWrapper for a more functional UI hub
-import FeaturesSection from '@/components/sections/FeaturesSection'
-import StatsSection from '@/components/sections/StatsSection'
 
 /* ── Sample resource types for type strip ── */
 const typeStrip = [
