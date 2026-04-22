@@ -8,10 +8,9 @@ import Footer from '@/components/ui/Footer'
 import StatsSection from '@/components/sections/StatsSection'
 import FeaturesSection from '@/components/sections/FeaturesSection'
 
-const HeroSceneWrapper = dynamic(
-  () => import('@/components/3d/HeroSceneWrapper'),
-  { ssr: false }
-)
+// Removed HeroSceneWrapper for a more functional UI hub
+import FeaturesSection from '@/components/sections/FeaturesSection'
+import StatsSection from '@/components/sections/StatsSection'
 
 /* ── Sample resource types for type strip ── */
 const typeStrip = [
@@ -57,12 +56,12 @@ export default function HomePage() {
         {/*              HERO SECTION               */}
         {/* ═══════════════════════════════════════ */}
         <section className="hero-section grid-bg">
-          {/* 3-D Canvas — absolute behind text */}
-          <div className="hero-section__canvas">
-            <HeroSceneWrapper />
+          {/* Functional UI Hub instead of 3D Scene */}
+          <div className="hero-section__canvas" style={{ pointerEvents: 'none' }}>
+             <div className="hero-hub-bg" />
           </div>
 
-          {/* Radial glow orbs */}
+          {/* Radial glow orbs for premium feel */}
           <div className="hero-glow hero-glow--blue"   />
           <div className="hero-glow hero-glow--violet" />
           <div className="hero-glow hero-glow--teal"   />
@@ -116,19 +115,26 @@ export default function HomePage() {
               ))}
             </motion.div>
 
-            {/* CTA buttons */}
+            {/* CTA buttons and Smart Search */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.42 }}
               className="hero-cta"
+              style={{ pointerEvents: 'auto' }}
             >
-              <Link href="/explore" className="btn-glow hero-btn-primary">
-                🔍 ابدأ الاستكشاف
-              </Link>
-              <Link href="/login" className="btn-outline hero-btn-secondary">
-                انضم مجاناً ←
-              </Link>
+              <div className="search-box-premium glass">
+                <input type="text" placeholder="ماذا تريد أن تتعلم اليوم؟" />
+                <button>🔍</button>
+              </div>
+              <div style={{ display: 'flex', gap: '12px', marginTop: '10px' }}>
+                <Link href="/explore" className="btn-glow hero-btn-primary">
+                  📂 استكشف المواد
+                </Link>
+                <Link href="/login" className="btn-outline hero-btn-secondary">
+                  👨‍🏫 دخول المعلمين
+                </Link>
+              </div>
             </motion.div>
 
             {/* Scroll hint */}

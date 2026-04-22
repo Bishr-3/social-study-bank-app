@@ -23,6 +23,8 @@ export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState<'overview' | 'ai' | 'study' | 'library'>('overview')
   const [loading, setLoading] = useState(true)
 
+  const [showRoleSelection, setShowRoleSelection] = useState(false)
+
   useEffect(() => {
     async function checkUser() {
       const { data: { user } } = await supabase.auth.getUser()
@@ -33,13 +35,57 @@ export default function DashboardPage() {
       setUser(user)
 
       const { data: prof } = await supabase.from('profiles').select('*').eq('id', user.id).single()
-      setProfile(prof)
+      
+      if (prof) {
+        setProfile(prof)
+        // Check if user is a teacher and redirect
+        if (prof.role === 'teacher') {
+          router.push('/teacher')
+          return
+        }
+        // If it's a fresh account with no education level set, maybe ask for role
+        if (!prof.education_level && prof.role === 'student') {
+          setShowRoleSelection(true)
+        }
+      }
       setLoading(false)
     }
     checkUser()
   }, [router, supabase])
 
+  const handleSelectRole = async (role: 'student' | 'teacher') => {
+     setLoading(true)
+     const { error } = await supabase.from('profiles').update({ role }).eq('id', user.id)
+     if (!error) {
+       if (role === 'teacher') {
+         router.push('/teacher')
+       } else {
+         setShowRoleSelection(false)
+       }
+     }
+     setLoading(false)
+  }
+
   if (loading) return <div className="loader-overlay"><div className="hero-scene-loader"></div></div>
+
+  if (showRoleSelection) {
+    return (
+      <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-primary)' }}>
+         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="card glass" style={{ padding: '50px', textAlign: 'center', maxWidth: '500px' }}>
+            <h1 style={{ marginBottom: '10px' }}>مرحباً بك في بنك الدروس 🎉</h1>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '30px' }}>أخبرنا قليلاً عنك لنعرف كيف يمكننا خدمتك بشكل أفضل.</p>
+            <div style={{ display: 'grid', gap: '16px' }}>
+               <button className="btn-glow" onClick={() => handleSelectRole('student')}>
+                  🎓 أنا طالب (أبحث عن ملخصات)
+               </button>
+               <button className="btn-outline" onClick={() => handleSelectRole('teacher')}>
+                  👨‍🏫 أنا معلم (أريد مشاركة دروسي)
+               </button>
+            </div>
+         </motion.div>
+      </div>
+    )
+  }
 
   const displayName = profile?.full_name ?? user?.email?.split('@')[0] ?? 'مرحباً'
 

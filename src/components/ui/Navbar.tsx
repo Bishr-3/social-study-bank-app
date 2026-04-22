@@ -10,15 +10,29 @@ export default function Navbar() {
   const [user, setUser] = useState<User | null>(null)
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [profile, setProfile] = useState<any>(null)
   const supabase = createClient()
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setUser(data.user))
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user)
+      if (data.user) {
+        supabase.from('profiles').select('role').eq('id', data.user.id).single()
+          .then(({ data: prof }) => setProfile(prof))
+      }
+    })
+    
     const { data: listener } = supabase.auth.onAuthStateChange((_e, session) => {
       setUser(session?.user ?? null)
+      if (session?.user) {
+        supabase.from('profiles').select('role').eq('id', session.user.id).single()
+          .then(({ data: prof }) => setProfile(prof))
+      } else {
+        setProfile(null)
+      }
     })
     return () => listener.subscription.unsubscribe()
-  }, [])
+  }, [supabase])
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
@@ -29,7 +43,6 @@ export default function Navbar() {
   const navLinks = [
     { href: '/explore',   label: 'استكشف' },
     { href: '/subjects',  label: 'المواد' },
-    { href: '/upload',    label: 'شارك' },
     { href: '/dashboard', label: 'مكتبتي' },
   ]
 
@@ -64,27 +77,31 @@ export default function Navbar() {
           {/* Auth Buttons */}
           <div className="navbar__auth">
             {user ? (
-              <div className="navbar__user">
-                <div className="navbar__avatar">
-                  {user.email?.[0]?.toUpperCase() ?? 'U'}
-                </div>
-                <button
-                  className="btn-outline"
-                  style={{ padding: '8px 18px', fontSize: '0.85rem' }}
-                  onClick={() => supabase.auth.signOut()}
+              <div className="navbar__user" style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                <Link 
+                  href={profile?.role === 'teacher' ? '/teacher' : '/dashboard'} 
+                  className="btn-glow" 
+                  style={{ padding: '8px 20px', fontSize: '0.9rem' }}
+                >
+                  {profile?.role === 'teacher' ? '👨‍🏫 لوحة المعلم' : '🏠 لوحة التحكم'}
+                </Link>
+                <button 
+                  onClick={() => supabase.auth.signOut()} 
+                  className="btn-outline" 
+                  style={{ padding: '8px 15px', fontSize: '0.8rem' }}
                 >
                   خروج
                 </button>
               </div>
             ) : (
-              <>
-                <Link href="/login" className="navbar__link" style={{ marginLeft: '8px' }}>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <Link href="/login" className="btn-outline" style={{ padding: '8px 20px', fontSize: '0.9rem' }}>
                   دخول
                 </Link>
-                <Link href="/register" className="btn-glow" style={{ padding: '10px 22px', fontSize: '0.88rem' }}>
-                  انضم مجاناً
+                <Link href="/login" className="btn-glow" style={{ padding: '8px 20px', fontSize: '0.9rem' }}>
+                  انضم الآن
                 </Link>
-              </>
+              </div>
             )}
           </div>
 

@@ -153,18 +153,51 @@
   overflow: hidden;
   padding-top: 80px;
 }
-.hero-section__canvas {
+.hero-hub-bg {
   position: absolute;
   inset: 0;
-  z-index: 0;
-  pointer-events: auto; /* ENABLE SPLINE INTERACTION! */
+  background: radial-gradient(circle at 70% 30%, rgba(79, 142, 247, 0.08) 0%, transparent 50%),
+              radial-gradient(circle at 30% 70%, rgba(124, 92, 252, 0.05) 0%, transparent 40%);
+  z-index: -1;
 }
-.hero-scene-wrapper {
-  position: absolute;
-  inset: 0;
+.search-box-premium {
+  display: flex;
+  align-items: center;
   width: 100%;
-  height: 100%;
-  overflow: hidden;
+  max-width: 500px;
+  padding: 8px 12px;
+  border-radius: 16px;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glow);
+  box-shadow: 0 8px 32px rgba(79, 142, 247, 0.1);
+  margin-bottom: 20px;
+}
+.search-box-premium input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 12px;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+.search-box-premium button {
+  background: var(--accent-blue);
+  color: white;
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.search-box-premium button:hover {
+  transform: scale(1.05);
+}
+@media (max-width: 768px) {
+  .search-box-premium {
+    margin: 0 auto 20px;
+  }
 }
 .hero-scene-wrapper > * {
   /* Ensure spline fills well but hide its logo area */
