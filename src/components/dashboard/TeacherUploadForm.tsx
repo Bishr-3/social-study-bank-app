@@ -23,8 +23,13 @@ export default function TeacherUploadForm({ userId, onSuccess }: TeacherUploadFo
 
   useEffect(() => {
     async function fetchSubjects() {
-      const { data } = await supabase.from('subjects').select('*').order('name_ar')
-      if (data) setSubjects(data)
+      const { data, error } = await supabase.from('subjects').select('*').order('name_ar')
+      if (error) {
+        console.error('Error fetching subjects:', error)
+        setStatus({ type: 'error', msg: `فشل جلب المواد: ${error.message}` })
+      } else if (data) {
+        setSubjects(data)
+      }
     }
     fetchSubjects()
   }, [])
